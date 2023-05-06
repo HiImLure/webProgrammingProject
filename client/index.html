@@ -1,0 +1,40 @@
+<!doctype html>
+<meta charset=utf-8>
+<script defer src="index.js"></script>
+<link rel="stylesheet" href="styles.css">
+<script>
+    /* code for auto-growing text field */
+    function autoGrow(element) {
+        element.style.height = "3px";
+        element.style.height = (element.scrollHeight)+"px";
+    }
+</script>
+
+<title>Placement Log</title>
+
+<header>
+    <h1>Placement Log</h1>
+</header>
+
+<main>
+    <textarea input id=work type=text placeholder="Enter work done" oninput="(this)"></textarea>
+
+    <br>
+
+    <textarea input id=exp type=text placeholder="Enter experience gained" oninput="(this)"></textarea>
+
+    <br>
+
+    <textarea input id=comp type=text placeholder="Enter competencies displayed" oninput="(this)"></textarea>
+
+    <br>
+
+    <input id=send type=submit value=Send>
+
+    <ul id="logList">
+        <li>Loading...</li>
+    </ul>
+
+    <div id="log-details"></div>
+
+</main>
