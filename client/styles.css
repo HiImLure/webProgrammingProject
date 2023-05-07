@@ -1,13 +1,21 @@
 textarea {
     resize: none; /* Disable user-resizing */
-    height: 2em; /* Set a minimum height */
-}
-textarea:active,
-textarea:focus {
-    height: auto; /* Allow the field to expand as the user types */
+    height: 5em; /* Set a minimum height */
+    text-overflow: break-word;
 }
 
-main {
+textarea:active,
+textarea:focus{
+    height: auto;
+}
+
+
+
+#log-details p {
+    display: inline-block;
+    margin: 5px;
+    padding: 5px;
+    border: 2px solid black;
     inline-size: 350px;
     overflow-wrap: break-word;
 }

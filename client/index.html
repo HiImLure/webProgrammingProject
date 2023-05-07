@@ -17,24 +17,31 @@
 </header>
 
 <main>
-    <textarea input id=work type=text placeholder="Enter work done" oninput="(this)"></textarea>
+
+        <textarea class="forPayload" id=work type=text placeholder="Enter work done" oninput="(this)"></textarea>
 
     <br>
 
-    <textarea input id=exp type=text placeholder="Enter experience gained" oninput="(this)"></textarea>
+        <input class = "forPayload" id=exp type=text placeholder="Enter experience gained" oninput="(this)"></input>
 
     <br>
 
-    <textarea input id=comp type=text placeholder="Enter competencies displayed" oninput="(this)"></textarea>
+     <input class = "forPayload" id=comp type=text placeholder="Enter competencies displayed"  oninput="(this)"></textarea>
 
     <br>
 
     <input id=send type=submit value=Send>
 
+
+<section class="Log-values">
+
     <ul id="logList">
-        <li>Loading...</li>
+        <li>Logs loading...</li>
     </ul>
 
-    <div id="log-details"></div>
+    <ul id="log-details"></ul>
+
+</section>
+
 
 </main>

@@ -1,5 +1,5 @@
 const el = {};
-el.details = document.querySelector('#log-details');
+
 
 /* removes text contents from an element */
 function free(filled) {
@@ -10,7 +10,7 @@ function free(filled) {
 function showLogs(logs, path) {
   for (const log of logs) {
     const li = document.createElement('li');
-    li.textContent = log.date
+    li.textContent = [log.work, log.exp, log.comp];
     li.dataset.id = log.id;
     path.append(li);
     li.addEventListener("mouseenter", showContent);
@@ -72,6 +72,7 @@ async function submitLog() {
   let payloadExp = document.querySelector('#exp').value;
   let payloadComp = document.querySelector('#comp').value;
 
+
   const payload = { 
     work: payloadWork,
     exp: payloadExp,
@@ -110,7 +111,7 @@ async function submitLog() {
  */
 function prepareHandles() {
   el.logList = document.querySelector('#logList');
-
+  el.details = document.querySelector('#log-details');
   el.log = {
     work: document.querySelector('#work'),
     exp: document.querySelector('#exp'),

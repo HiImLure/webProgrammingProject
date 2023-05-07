@@ -8,6 +8,13 @@ let logs = [
     exp: 'more experience than yesterday',
     comp: 'C5'
   },
+  {
+    id: '2',
+    date: 'million years ago',
+     work: 'a questionable amount of work', 
+     exp: 'none :)',
+     comp: 'J6'
+  },
 ];
 
 export function logList() {
