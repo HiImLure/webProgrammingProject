@@ -1,78 +1,130 @@
-// const el = {};
 
-// function showMessage(message) {
-//   el.message.value = message.msg;
-// }
+const el = {};
 
-// function getMessageId() {
-//   return window.location.hash.substring(1);
-// }
 
-// async function loadMessage() {
-//   const id = getMessageId();
-//   const response = await fetch(`messages/${id}`);
-//   let message;
-//   if (response.ok) {
-//     message = await response.json();
-//   } else {
-//     message = { msg: 'failed to load messages :-(' };
-//   }
-//   showMessage(message);
-// }
 
-// /* add a message if enter pressed,
-//    update button to make it "update" when the message is edited */
-// function checkKeys(e) {
-//   if (e.key === 'Enter') {
-//     sendMessage();
-//   }
-// }
 
-// /** Use fetch to put a JSON message to the server */
-// async function sendMessage() {
-//   const id = getMessageId();
-//   const payload = { id, msg: el.message.value };
-//   console.log('Payload', payload);
 
-//   const response = await fetch(`messages/${id}`, {
-//     method: 'PUT',
-//     headers: { 'Content-Type': 'application/json' },
-//     body: JSON.stringify(payload),
-//   });
 
-//   if (response.ok) {
-//     el.message.value = '';
-//     const updatedMessages = await response.json();
-//     showMessage(updatedMessages, el.messagelist);
-//   } else {
-//     console.log('failed to send message', response);
-//   }
-// }
 
-// /**
-//  * Page elements used in the program are
-//  * setup here for convenience.
-//  */
-// function prepareHandles() {
-//   el.message = document.querySelector('#message');
-//   el.send = document.querySelector('#send');
-// }
+async function showContent(e) {
+  const response = await fetch('logs/' + e.target.dataset.id);
+  if (response.ok) {
+    const details = await response.json();
+    const work = document.createElement("p");
+    const exp = document.createElement("p");
+    const comp = document.createElement("p");
 
-// /**
-//  * Connect listeners for button clicks,
-//  * keyboard input, etc.
-//  */
-// function addEventListeners() {
-//   el.send.addEventListener('click', sendMessage);
-//   el.message.addEventListener('keyup', checkKeys);
-// }
+    work.textContent = `Work: ${details.work}`
+    exp.textContent = `Experience: ${details.exp}`
+    comp.textContent = `Competencies: ${details.comp}`;
 
-// function pageLoaded() {
-//   prepareHandles();
-//   addEventListeners();
-//   loadMessage();
-// }
+    free(el.details)
+    el.details.append(work, exp, comp);
+  }
+}
 
-// // deprecated in favour of using defer in the script tag
-// // window.addEventListener('load', pageLoaded);
-// pageLoaded();
+async function loadLogs() {
+  const response = await fetch("logs");
+  let logs;
+  if (response.ok) {
+    logs = await response.json();
+  } 
+  
+  else {
+    logs = ["Logs could not be loaded"];
+
+  }
+}
+
+/* add a message if enter pressed */
+function checkKeys(e) {
+  if (e.key === 'Enter') {
+    submitLog();
+    window.location.href="/";
+  };
+}
+
+
+
+/** Use fetch to post a JSON message to the server */
+async function submitLog() {
+
+  let payloadWork = document.querySelector('#work').value;
+  let payloadExp = document.querySelector('#exp').value;
+  let payloadComp = document.querySelector('#comp').value;
+
+
+  const payload = { 
+    work: payloadWork,
+    exp: payloadExp,
+    comp: payloadComp
+   };
+
+   
+
+  console.log(payload);
+
+  const response = await fetch('logs', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
+
+  if (response.ok) {
+    // looping through each value in el.log object //
+    for (const entry in el.log) {
+      let elem = el.log[entry]
+      elem.value = ""
+    }
+    const updatedLogs = await response.json();
+  } 
+  
+  else {
+    console.log('failed to send message', response);
+  }
+}
+
+/**
+ * Page elements used in the program are
+ * setup here for convenience.
+ */
+function prepareHandles() {
+  el.logList = document.querySelector('#logList');
+  el.details = document.querySelector('#log-details');
+  el.log = {
+    work: document.querySelector('#work'),
+    exp: document.querySelector('#exp'),
+    comp: document.querySelector('#comp')
+  }
+
+  el.send = document.querySelector('#send');
+
+}
+
+/**
+ * Connect listeners for button clicks,
+ * keyboard input, etc.
+ */
+
+function addEventListeners() {
+  el.send.addEventListener("click", submitLog);
+
+
+  for (const key in el.log) {
+    let elem = el.log[key]
+    elem.addEventListener('keyup', checkKeys);
+  }
+}
+
+
+function pageLoaded() {
+  prepareHandles();
+  addEventListeners()
+  loadLogs();
+}
+
+// deprecated in favour of using defer in the script tag
+// window.addEventListener('load', pageLoaded);
+pageLoaded();
+

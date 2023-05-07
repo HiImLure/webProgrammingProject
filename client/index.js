@@ -57,12 +57,6 @@ async function loadLogs() {
   showLogs(logs, el.logList);
 }
 
-/* add a message if enter pressed */
-function checkKeys(e) {
-  if (e.key === 'Enter') {
-    submitLog();
-  }
-}
 
 
 /** Use fetch to post a JSON message to the server */
@@ -122,24 +116,11 @@ function prepareHandles() {
 
 }
 
-/**
- * Connect listeners for button clicks,
- * keyboard input, etc.
- */
 
-function addEventListeners() {
-  el.send.addEventListener("click", submitLog);
-
-  for (const key in el.log) {
-    let elem = el.log[key]
-    elem.addEventListener('keyup', checkKeys);
-  }
-}
 
 
 function pageLoaded() {
   prepareHandles();
-  addEventListeners()
   loadLogs();
 }
 

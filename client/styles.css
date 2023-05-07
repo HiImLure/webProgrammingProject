@@ -1,7 +1,6 @@
 textarea {
     resize: none; /* Disable user-resizing */
-    height: 5em; /* Set a minimum height */
-    text-overflow: break-word;
+    height: 3em; /* Set a minimum height */
 }
 
 textarea:active,

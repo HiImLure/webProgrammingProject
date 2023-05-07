@@ -1,0 +1,35 @@
+<!doctype html>
+<meta charset=utf-8>
+<script defer src="message.js"></script>
+<link rel="stylesheet" href="styles.css">
+<script>
+    /* code for auto-growing text field */
+    function autoGrow(element) {
+        element.style.height = "4px";
+        element.style.height = (element.scrollHeight)+"px";
+    }
+</script>
+<title>Placement log: Send log</title>
+
+<h1>Post Entry</h1>
+
+<section>
+    <label for="work">Work: </label>
+    <textarea class="forPayload" id=work type=text placeholder="Enter work done" oninput="autoGrow(this)"></textarea>
+
+    <br>
+        <label for="exp">Experience: </label>
+        <textarea class = "forPayload" id=exp type=text placeholder="Enter experience gained" oninput="autoGrow(this)"></textarea>
+
+    <br>
+     <label for="comp">Competency: </label>
+     <textarea class = "forPayload" id=comp type=text placeholder="Enter competencies displayed"  oninput="autoGrow(this)"></textarea>
+
+    <br>
+
+        <input id=send type=submit value=Send onclick="window.location.href='/'">
+
+</section>
+
+
+<p><a href="/">Back to list of logs</a>
