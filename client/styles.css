@@ -10,11 +10,20 @@ textarea:focus{
 
 
 
-#log-details p {
+/* #logList {
     display: inline-block;
     margin: 5px;
     padding: 5px;
     border: 2px solid black;
     inline-size: 350px;
     overflow-wrap: break-word;
+} */
+
+body {
+    background-color: #33475b;
+}
+
+header{
+    display: flex;
+    justify-content: center;
 }

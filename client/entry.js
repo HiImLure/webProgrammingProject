@@ -1,28 +1,10 @@
 
 const el = {};
+const ui = {};
+ui.inputSection = document.querySelector('section.inputs');
+ui.fields = ui.inputSection.querySelectorAll('.forpayload')
 
 
-
-
-
-
-
-async function showContent(e) {
-  const response = await fetch('logs/' + e.target.dataset.id);
-  if (response.ok) {
-    const details = await response.json();
-    const work = document.createElement("p");
-    const exp = document.createElement("p");
-    const comp = document.createElement("p");
-
-    work.textContent = `Work: ${details.work}`
-    exp.textContent = `Experience: ${details.exp}`
-    comp.textContent = `Competencies: ${details.comp}`;
-
-    free(el.details)
-    el.details.append(work, exp, comp);
-  }
-}
 
 async function loadLogs() {
   const response = await fetch("logs");
@@ -50,16 +32,11 @@ function checkKeys(e) {
 /** Use fetch to post a JSON message to the server */
 async function submitLog() {
 
-  let payloadWork = document.querySelector('#work').value;
-  let payloadExp = document.querySelector('#exp').value;
-  let payloadComp = document.querySelector('#comp').value;
-
-
-  const payload = { 
-    work: payloadWork,
-    exp: payloadExp,
-    comp: payloadComp
-   };
+  const payload = {};
+  for (const field of ui.fields) {
+    payload[field.id] = field.value;
+    console.log(field)
+  }
 
    
 
@@ -92,6 +69,7 @@ async function submitLog() {
 function prepareHandles() {
   el.logList = document.querySelector('#logList');
   el.details = document.querySelector('#log-details');
+  
   el.log = {
     work: document.querySelector('#work'),
     exp: document.querySelector('#exp'),

@@ -17,6 +17,7 @@ let logs = [
   },
 ];
 
+
 export function logList() {
   return logs;
 }
@@ -30,15 +31,19 @@ export function findLog(id) {
   return null;
 }
 
+const options = {year: 'numeric', month: 'numeric', day: 'numeric' };
+const today  = new Date();
+
 export function newLog(work, exp, comp) {
-  const newLog = {
+  const logDetail = {
     id: uuid(),
-    date: Date(),
+    date: today.toLocaleDateString("en-gb", options),
     work,
     exp,
     comp
   };
-  logs = [newLog, ...logs.slice(0, 9)];
+  logs = [logDetail, ...logs.slice(0, 9)];
+
   return logs
 }
 

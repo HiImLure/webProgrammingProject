@@ -1,6 +1,6 @@
 <!doctype html>
 <meta charset=utf-8>
-<script defer src="message.js"></script>
+<script defer src="entry.js"></script>
 <link rel="stylesheet" href="styles.css">
 <script>
     /* code for auto-growing text field */
@@ -13,17 +13,18 @@
 
 <h1>Post Entry</h1>
 
-<section>
+<section class = "inputs">
     <label for="work">Work: </label>
-    <textarea class="forPayload" id=work type=text placeholder="Enter work done" oninput="autoGrow(this)"></textarea>
+    <textarea class="forpayload" id=work type=text placeholder="Enter work done" oninput="autoGrow(this)"></textarea>
 
     <br>
         <label for="exp">Experience: </label>
-        <textarea class = "forPayload" id=exp type=text placeholder="Enter experience gained" oninput="autoGrow(this)"></textarea>
+        
+        <textarea class = "forpayload" id=exp type=text placeholder="Enter experience gained" oninput="autoGrow(this)"></textarea>
 
     <br>
      <label for="comp">Competency: </label>
-     <textarea class = "forPayload" id=comp type=text placeholder="Enter competencies displayed"  oninput="autoGrow(this)"></textarea>
+     <textarea class = "forpayload" id=comp type=text placeholder="Enter competencies displayed"  oninput="autoGrow(this)"></textarea>
 
     <br>
 

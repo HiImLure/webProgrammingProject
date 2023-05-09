@@ -6,14 +6,39 @@ function free(filled) {
   filled.textContent = '';
 }
 
+/* Takes each item in log, and appends it into a template body */
+
+const addItem = (entry) => {
+  const tbody = document.querySelector("ul#logList")
+  const template = document.querySelector("#entryrow")
+
+  const clone = template.content.cloneNode(true)
+  let listelem = clone.querySelector("li")
+
+  listelem.textContent = `${entry.date}, ${entry.work}, ${entry.exp}, ${entry.comp}`
+
+  tbody.appendChild(clone)
+}
+
+
+
+
 /* Add an array of messages to the page */
-function showLogs(logs, path) {
-  for (const log of logs) {
-    const li = document.createElement('li');
-    li.textContent = [log.work, log.exp, log.comp];
-    li.dataset.id = log.id;
-    path.append(li);
-    li.addEventListener("mouseenter", showContent);
+async function showLogs(logs) {
+  const response = await fetch('logs/');
+  if (response.ok) {
+    const details = await response.json();
+
+    for (const log of logs) {
+     
+      const work = `work: ${log.work}`
+      const exp = `exp: ${log.exp}`
+      const comp = `comp: ${log.comp}`;
+      const date = `${log.date}`
+
+      addItem({date, work, exp, comp })
+
+    }
 
     // const edit = document.createElement('a');
     // edit.textContent = 'edit me';
@@ -24,22 +49,6 @@ function showLogs(logs, path) {
 }
 
 
-async function showContent(e) {
-  const response = await fetch('logs/' + e.target.dataset.id);
-  if (response.ok) {
-    const details = await response.json();
-    const work = document.createElement("p");
-    const exp = document.createElement("p");
-    const comp = document.createElement("p");
-
-    work.textContent = `Work: ${details.work}`
-    exp.textContent = `Experience: ${details.exp}`
-    comp.textContent = `Competencies: ${details.comp}`;
-
-    free(el.details)
-    el.details.append(work, exp, comp);
-  }
-}
 
 async function loadLogs() {
   const response = await fetch("logs");
@@ -59,53 +68,12 @@ async function loadLogs() {
 
 
 
-/** Use fetch to post a JSON message to the server */
-async function submitLog() {
-
-  let payloadWork = document.querySelector('#work').value;
-  let payloadExp = document.querySelector('#exp').value;
-  let payloadComp = document.querySelector('#comp').value;
-
-
-  const payload = { 
-    work: payloadWork,
-    exp: payloadExp,
-    comp: payloadComp
-   };
-
-   
-
-  console.log(payload);
-
-  const response = await fetch('logs', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
-  });
-
-  if (response.ok) {
-    // looping through each value in el.log object //
-    for (const entry in el.log) {
-      let elem = el.log[entry]
-      elem.value = ""
-    }
-    const updatedLogs = await response.json();
-    free(el.logList);
-    showLogs(updatedLogs, el.logList);
-  } 
-  
-  else {
-    console.log('failed to send message', response);
-  }
-}
-
 /**
  * Page elements used in the program are
  * setup here for convenience.
  */
 function prepareHandles() {
   el.logList = document.querySelector('#logList');
-  el.details = document.querySelector('#log-details');
   el.log = {
     work: document.querySelector('#work'),
     exp: document.querySelector('#exp'),
