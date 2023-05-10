@@ -1,11 +1,6 @@
 const el = {};
 
 
-/* removes text contents from an element */
-// function free(filled) {
-//   filled.textContent = '';
-// }
-
 /* Takes each item in log, and appends it into a template body */
 
 const addItem = (entry) => {
@@ -14,6 +9,7 @@ const addItem = (entry) => {
 
   const clone = template.content.cloneNode(true)
   let items = clone.querySelectorAll("td")
+
 
   items[0].textContent = entry.date
   items[1].textContent = entry.work
@@ -31,7 +27,6 @@ const addItem = (entry) => {
 async function showLogs(logs) {
   const response = await fetch('logs/');
   if (response.ok) {
-    const details = await response.json();
 
     for (const log of logs) {
      
@@ -44,10 +39,6 @@ async function showLogs(logs) {
 
     }
 
-    // const edit = document.createElement('a');
-    // edit.textContent = 'edit me';
-    // edit.href = `/message#${message.id}`;
-    // li.append(' (', edit, ')');
 
   }
 }
@@ -66,10 +57,16 @@ async function loadLogs() {
 
   }
 
-  // free(el.logList);
   showLogs(logs, el.logList);
 }
 
+
+
+const printButton = document.querySelector('#print');
+
+printButton.addEventListener('click', function() {
+  window.print()
+});
 
 
 /**

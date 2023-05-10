@@ -3,7 +3,9 @@
     <head>
 <meta charset=utf-8>
 <script defer src="index.js"></script>
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css" media="screen">
+<link href="styles.css" media="print" rel="stylesheet" type="text/css">
+
 
 <title>Placement Log</title>
     </head>
@@ -16,8 +18,16 @@
 
 
 <main>
+    <div>
+    <nav id = "clickBtns">
 
-    <input id=send type=submit value="Post Entry" onclick="window.location.href='entry'">
+
+        <a id="send" href="/entry.html">Entry page</a>
+
+        <a id="print" href="#">Print</a>
+
+    </nav>
+    </div>
 
 
 <section class="Log-values">
@@ -25,11 +35,11 @@
 
     <table>
         <thead>
-            <tr>
-                <td>date</td>
-                <td>work</td>
-                <td>experience</td>
-                <td>competency</td>
+            <tr id = "heading">
+                <th><h1>Date</h1></th>
+                <th><h1>work</h1></th>
+                <th><h1>Experience</h1></th>
+                <th><h1>Competency</h1></th>
             </tr>
         </thead>
 

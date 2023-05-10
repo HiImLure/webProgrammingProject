@@ -4,17 +4,10 @@ let logs = [
   { 
     id: '1',
    date: 'long long ago',
-    work: 'a reasonable amount of work', 
-    exp: 'more experience than yesterday',
-    comp: 'C5'
-  },
-  {
-    id: '2',
-    date: 'million years ago',
-     work: 'a questionable amount of work', 
-     exp: 'none :)',
-     comp: 'J6'
-  },
+    work: 'Hello', 
+    exp: 'This is my',
+    comp: 'first entry :)'
+  }
 ];
 
 
@@ -31,7 +24,7 @@ export function findLog(id) {
   return null;
 }
 
-const options = {year: 'numeric', month: 'numeric', day: 'numeric' };
+const options = {year: '2-digit', month: 'numeric', day: 'numeric' };
 const today  = new Date();
 
 export function newLog(work, exp, comp) {
@@ -47,13 +40,3 @@ export function newLog(work, exp, comp) {
   return logs
 }
 
-// export function editMessage(updatedMessage) {
-//   const storedMessage = findMessage(updatedMessage.id);
-//   if (storedMessage == null) throw new Error('message not found');
-
-//   // update old message in place
-//   storedMessage.time = Date();
-//   storedMessage.msg = updatedMessage.msg;
-
-//   return storedMessage;
-// }

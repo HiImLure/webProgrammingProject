@@ -50,11 +50,7 @@ async function submitLog() {
 
   if (response.ok) {
     // looping through each value in el.log object //
-    for (const entry in el.log) {
-      let elem = el.log[entry]
-      elem.value = ""
-    }
-    const updatedLogs = await response.json();
+    console.log("success!")
   } 
   
   else {

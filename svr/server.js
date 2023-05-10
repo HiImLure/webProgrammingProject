@@ -25,6 +25,7 @@ function postLogs(req, res) {
 }
 
 
+
 app.get('/logs', getLogs);
 app.get('/logs/:id', getLog);
 app.post('/logs', express.json(), postLogs);
