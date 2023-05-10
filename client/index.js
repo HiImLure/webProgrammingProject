@@ -2,22 +2,26 @@ const el = {};
 
 
 /* removes text contents from an element */
-function free(filled) {
-  filled.textContent = '';
-}
+// function free(filled) {
+//   filled.textContent = '';
+// }
 
 /* Takes each item in log, and appends it into a template body */
 
 const addItem = (entry) => {
-  const tbody = document.querySelector("ul#logList")
-  const template = document.querySelector("#entryrow")
+  let logs = document.querySelector("#loglist")
+  let template = document.querySelector("#entryrow")
 
   const clone = template.content.cloneNode(true)
-  let listelem = clone.querySelector("li")
+  let items = clone.querySelectorAll("td")
 
-  listelem.textContent = `${entry.date}, ${entry.work}, ${entry.exp}, ${entry.comp}`
+  items[0].textContent = entry.date
+  items[1].textContent = entry.work
+  items[2].textContent = entry.exp
+  items[3].textContent = entry.comp
 
-  tbody.appendChild(clone)
+  logs.appendChild(clone)
+  console.log("test")
 }
 
 
@@ -31,9 +35,9 @@ async function showLogs(logs) {
 
     for (const log of logs) {
      
-      const work = `work: ${log.work}`
-      const exp = `exp: ${log.exp}`
-      const comp = `comp: ${log.comp}`;
+      const work = `${log.work}`
+      const exp = `${log.exp}`
+      const comp = `${log.comp}`;
       const date = `${log.date}`
 
       addItem({date, work, exp, comp })
@@ -62,7 +66,7 @@ async function loadLogs() {
 
   }
 
-  free(el.logList);
+  // free(el.logList);
   showLogs(logs, el.logList);
 }
 
@@ -73,7 +77,7 @@ async function loadLogs() {
  * setup here for convenience.
  */
 function prepareHandles() {
-  el.logList = document.querySelector('#logList');
+  el.loglist = document.querySelector('#logList');
   el.log = {
     work: document.querySelector('#work'),
     exp: document.querySelector('#exp'),
