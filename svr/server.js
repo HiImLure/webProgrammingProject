@@ -6,28 +6,32 @@ const app = express();
 
 app.use(express.static('client', { extensions: ['html'] }));
 
-function getLogs(req, res) {
-  res.json(lg.logList());
+async function getLogs(req, res){
+  res.json(await lg.logList());
 }
 
-function getLog(req, res) {
+async function getLog(req, res){
   const result = lg.findLog(req.params.id);
-  if (result) {
-    res.json(result);
-  } else {
-    res.status(404).send('No match for Log entry.');
-  }
+  if (result) { res.json(result); } else { res.status(404).send('No match');}
 }
 
-function postLogs(req, res) {
-  const logs = lg.newLog(req.body.work, req.body.exp, req.body.comp);
-  res.json(logs);
+async function postLogs(req,res){
+  const msg = await lg.newLog(req.body.work, req.body.exp, req.body.comp);
+  res.json(msg);
+}
+
+function asyncWrap(f) {
+  return (req,res,next) => {
+    Promise.resolve(f(req, res, next))
+      .catch((e) => next(e || new Error()));
+  };
 }
 
 
 
-app.get('/logs', getLogs);
-app.get('/logs/:id', getLog);
-app.post('/logs', express.json(), postLogs);
+
+app.get('/logs', asyncWrap(getLogs));
+app.get('/logs/:id', asyncWrap(getLog));
+app.post('/logs', express.json(), asyncWrap(postLogs));
 
 app.listen(8080);
