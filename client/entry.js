@@ -37,9 +37,6 @@ async function submitLog() {
     payload[field.id] = field.value;
     console.log(field)
   }
-
-   
-
   console.log(payload);
 
   const response = await fetch('logs', {
@@ -49,7 +46,6 @@ async function submitLog() {
   });
 
   if (response.ok) {
-    // looping through each value in el.log object //
     console.log("success!")
   } 
   
