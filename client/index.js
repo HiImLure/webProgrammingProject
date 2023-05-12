@@ -10,7 +10,6 @@ const addItem = (entry) => {
   const clone = template.content.cloneNode(true)
   let items = clone.querySelectorAll("td")
 
-
   items[0].textContent = entry.date
   items[1].textContent = entry.work
   items[2].textContent = entry.exp
@@ -27,6 +26,7 @@ const addItem = (entry) => {
 async function showLogs(logs) {
   const response = await fetch('logs/');
   if (response.ok) {
+    console.log("success!")
 
     for (const log of logs) {
      
@@ -35,7 +35,7 @@ async function showLogs(logs) {
       const comp = `${log.comp}`;
       const date = `${log.date}`
 
-      addItem({date, work, exp, comp })
+      addItem({ date, work, exp, comp })
 
     }
 
