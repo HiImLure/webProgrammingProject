@@ -1,42 +1,39 @@
 import uuid from 'uuid-random';
+import sqlite3 from 'sqlite3';
+import { open } from 'sqlite';
 
-let logs = [
-  { 
-    id: '1',
-   date: 'long long ago',
-    work: 'Hello', 
-    exp: 'This is my',
-    comp: 'first entry :)'
-  }
-];
+async function init() {
+  const database = await open({
+    filename: './logDatabase', 
+    driver: sqlite3.Database,
+    verbose : true,
+  });
 
-
-export function logList() {
-  return logs;
+  await database.migrate({ migrationsPath: './sql' });
+  return database;
 }
 
-export function findLog(id) {
-  for (const log of logs) {
-    if (log.id == id) {
-      return log;
-    }
-  }
-  return null;
+const connection = init();
+
+export async function logList() {
+  const database = await connection;
+  return await database.all('SELECT * FROM logs ORDER BY ROWID ASC LIMIT 30');  
 }
 
-const options = {year: '2-digit', month: 'numeric', day: 'numeric' };
+export async function findLog(id) {
+  const database = await connection;
+  return database.get('SELECT * FROM logs WHERE id = ?', id); 
+}
+
+const options = {year: '2-digit', month: 'numeric', day: 'numeric'};
 const today  = new Date();
 
-export function newLog(work, exp, comp) {
-  const logDetail = {
-    id: uuid(),
-    date: today.toLocaleDateString("en-gb", options),
-    work,
-    exp,
-    comp
-  };
-  logs = [logDetail, ...logs.slice(0, 9)];
+export async function newLog(work, exp, comp) {
+  const database = await connection;
 
-  return logs
+  const id = uuid();
+  const date = today.toLocaleDateString("en-gb", options);
+  await database.run('INSERT INTO logs VALUES (?,?,?,?,?)',[id, date, work, exp,comp ]);
+
+  return logList();
 }
-
