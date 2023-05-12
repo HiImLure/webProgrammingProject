@@ -11,7 +11,7 @@ CREATE TABLE logs (
 INSERT INTO logs (id, date, work, exp, comp) VALUES
 (
     '1',
-    DATETIME('now'), --i do not know why it is inserting null
+    DATETIME('now'), 
     'Welcome',
     'To your',
     'Placement diary :-)'
