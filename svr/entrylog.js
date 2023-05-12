@@ -33,15 +33,6 @@ function currentTime() {
   return formattedTime;
 }
 
-const options = {year: '2-digit', month: 'numeric', day: 'numeric' };
-const today  = new Date();
-
-  const id = uuid();
-  const date = currentTime();
-  await database.run('INSERT INTO logs VALUES (?,?,?,?,?)',[id, date, work, exp,comp ]);
-
-  return logList();
-}
 
 //Creates a new log with the given work, exp, and comp values. The id and date fields are automatically given. Returns the updated list of logs after they are inserted in the database.
 export async function newLog(work, exp, comp) {
