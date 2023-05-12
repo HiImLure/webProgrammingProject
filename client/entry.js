@@ -5,20 +5,6 @@ ui.inputSection = document.querySelector('section.inputs');
 ui.fields = ui.inputSection.querySelectorAll('.forpayload')
 
 
-
-async function loadLogs() {
-  const response = await fetch("logs");
-  let logs;
-  if (response.ok) {
-    logs = await response.json();
-  } 
-  
-  else {
-    logs = ["Logs could not be loaded"];
-
-  }
-}
-
 /* add a message if enter pressed */
 function checkKeys(e) {
   if (e.key === 'Enter') {
@@ -28,16 +14,13 @@ function checkKeys(e) {
 }
 
 
-
-/** Use fetch to post a JSON message to the server */
+/** Use fetch to post a JSON log to the server */
 async function submitLog() {
 
   const payload = {};
   for (const field of ui.fields) {
     payload[field.id] = field.value;
-    console.log(field)
   }
-  console.log(payload);
 
   const response = await fetch('logs', {
     method: 'POST',
@@ -60,16 +43,13 @@ async function submitLog() {
  */
 function prepareHandles() {
   el.logList = document.querySelector('#logList');
-  el.details = document.querySelector('#log-details');
   
   el.log = {
     work: document.querySelector('#work'),
     exp: document.querySelector('#exp'),
     comp: document.querySelector('#comp')
   }
-
   el.send = document.querySelector('#send');
-
 }
 
 /**
@@ -79,7 +59,6 @@ function prepareHandles() {
 
 function addEventListeners() {
   el.send.addEventListener("click", submitLog);
-
 
   for (const key in el.log) {
     let elem = el.log[key]
@@ -91,7 +70,6 @@ function addEventListeners() {
 function pageLoaded() {
   prepareHandles();
   addEventListeners()
-  loadLogs();
 }
 
 // deprecated in favour of using defer in the script tag

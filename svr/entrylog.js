@@ -44,3 +44,24 @@ export async function newLog(work, exp, comp) {
 
   return logList();
 }
+
+//connects to the sql db and extracts each updated value and updates entry into the db and gets updated log from db
+export async function editLog(updateLog) {
+  const db = await connection; 
+
+  const id = updateLog.id
+  const date = currentTime();
+  const work = updateLog.work
+  const exp = updateLog.exp
+  const comp = updateLog.comp
+
+  const statement = await db.run('UPDATE logs SET work = ? , exp = ? , comp = ?, date = ? WHERE id = ?', [work, exp, comp, date, id]);
+
+  const storedLog = findLog(updateLog.id);
+  if (storedLog == null) throw new Error('log not found');
+
+  // if nothing was updated, the ID doesn't exist
+  if (statement.changes === 0) throw new Error('log not found');
+
+  return findLog(id);
+}
